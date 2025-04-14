@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.cob.foo"
-version = "1.0.1"
+version = "1.0.2"
 
 kotlin {
     androidTarget {
@@ -19,9 +19,18 @@ kotlin {
         }
         publishLibraryVariants("release")
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "Foo"
+            isStatic = true
+        }
+    }
+    
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -76,16 +85,25 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.cob.foo"
             artifactId = "foo-android"
-            version = "1.0.1"
+            version = "1.0.2"
         }
 
         // iOS publication
         create<MavenPublication>("ios") {
             groupId = "com.cob.foo"
             artifactId = "foo-ios"
-            version = "1.0.1"
+            version = "1.0.2"
 
             from(components["kotlin"])
         }
     }
+}
+
+tasks.register<Zip>("packageXCFramework") {
+    dependsOn("linkFooReleaseFrameworkIosArm64", "linkFooReleaseFrameworkIosX64", "linkFooReleaseFrameworkIosSimulatorArm64")
+    
+    archiveFileName.set("Foo.xcframework.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("XCFrameworks"))
+    
+    from(layout.buildDirectory.dir("XCFrameworks/release"))
 }
