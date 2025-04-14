@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.cob.foo"
-version = "1.0.2"
+version = "1.0.3"
 
 kotlin {
     androidTarget {
@@ -84,15 +84,15 @@ publishing {
         // Android publication
         register<MavenPublication>("release") {
             groupId = "com.cob.foo"
-            artifactId = "foo-android"
-            version = "1.0.2"
+            artifactId = "foo"
+            version = "1.0.3"
         }
 
         // iOS publication
         create<MavenPublication>("ios") {
             groupId = "com.cob.foo"
-            artifactId = "foo-ios"
-            version = "1.0.2"
+            artifactId = "foo"
+            version = "1.0.3"
 
             from(components["kotlin"])
         }
