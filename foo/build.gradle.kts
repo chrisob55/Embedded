@@ -76,14 +76,14 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.cob.foo"
             artifactId = "foo-android"
-            version = "1.0.0"
+            version = "1.0.1"
         }
 
         // iOS publication
         create<MavenPublication>("ios") {
             groupId = "com.cob.foo"
             artifactId = "foo-ios"
-            version = "1.0.0"
+            version = "1.0.1"
 
             from(components["kotlin"])
         }
