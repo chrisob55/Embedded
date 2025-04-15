@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun FooScreen() {
+public fun FooScreen() {
     Column(
         Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
