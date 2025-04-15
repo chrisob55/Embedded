@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.androidLibrary)
@@ -9,8 +10,10 @@ plugins {
     id("signing")
 }
 
+val semanticVersion = "1.0.4"
+
 group = "com.cob.foo"
-version = "1.0.3"
+version = semanticVersion
 
 kotlin {
     androidTarget {
@@ -19,28 +22,29 @@ kotlin {
         }
         publishLibraryVariants("release")
     }
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
+
+    val xcFramework = XCFramework()
+    val iosTargets = listOf(iosX64(), iosArm64(), iosSimulatorArm64())
+
+    iosTargets.forEach {
         it.binaries.framework {
             baseName = "Foo"
-            isStatic = true
+            xcFramework.add(this)
         }
     }
-    
+
     sourceSets {
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
+        commonMain {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.runtime.compose)
+            }
         }
     }
 }
@@ -85,26 +89,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.cob.foo"
             artifactId = "foo"
-            version = "1.0.3"
-        }
-
-        // iOS publication
-        create<MavenPublication>("ios") {
-            groupId = "com.cob.foo"
-            artifactId = "foo"
-            version = "1.0.3"
-
-            from(components["kotlin"])
+            version = semanticVersion
         }
     }
-}
-
-tasks.register<Zip>("packageXCFramework") {
-    group = "build"
-    dependsOn("linkFooReleaseFrameworkIosArm64", "linkFooReleaseFrameworkIosX64", "linkFooReleaseFrameworkIosSimulatorArm64")
-    
-    archiveFileName.set("Foo.xcframework.zip")
-    destinationDirectory.set(layout.buildDirectory.dir("XCFrameworks"))
-    
-    from(layout.buildDirectory.dir("XCFrameworks/release"))
 }
