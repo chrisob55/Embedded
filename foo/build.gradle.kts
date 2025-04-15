@@ -100,6 +100,7 @@ publishing {
 }
 
 tasks.register<Zip>("packageXCFramework") {
+    group = "build"
     dependsOn("linkFooReleaseFrameworkIosArm64", "linkFooReleaseFrameworkIosX64", "linkFooReleaseFrameworkIosSimulatorArm64")
     
     archiveFileName.set("Foo.xcframework.zip")
