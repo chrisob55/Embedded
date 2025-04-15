@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Foo",
-            url: "https://github.com/chrisob55/Embedded/releases/download/1.0.4/foo.xcframework.zip",
-            checksum: "93a7eebbe7d6184a08655fcb7a3263ad4e692f62bd3d9fc0dd251a639eae8bec"
+            url: "https://github.com/chrisob55/Embedded/releases/download/1.0.6/Foo.xcframework.zip",
+            checksum: "1bb14c53c2e90f14082f0eed103d360adef0764f56bce6dc8183b0e8b87b9c3e"
         )
     ]
 )

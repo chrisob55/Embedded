@@ -10,7 +10,7 @@ plugins {
     id("signing")
 }
 
-val semanticVersion = "1.0.4"
+val semanticVersion = "1.0.6"
 
 group = "com.cob.foo"
 version = semanticVersion
@@ -23,7 +23,7 @@ kotlin {
         publishLibraryVariants("release")
     }
 
-    val xcFramework = XCFramework()
+    val xcFramework = XCFramework("Foo")
     val iosTargets = listOf(iosX64(), iosArm64(), iosSimulatorArm64())
 
     iosTargets.forEach {
