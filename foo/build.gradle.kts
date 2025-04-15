@@ -10,7 +10,7 @@ plugins {
     id("signing")
 }
 
-val semanticVersion = "1.0.6"
+val semanticVersion = "1.0.7"
 
 group = "com.cob.foo"
 version = semanticVersion

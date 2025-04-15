@@ -18,7 +18,7 @@ if ./gradlew assembleFooXCFramework; then
       echo "INFO: $(date +'%c') - Updating Package.swift with checksum ${CHECK_SUM}"
       sed -i .bak "s/checksum.*/checksum: \"${CHECK_SUM}\"/g" ../Package.swift
       sed -i .bak \
-      "s/url: \"https:\/\/github.com\/chrisob55\/Embedded\/releases.*/url: \"https\:\/\/github.com\/chrisob55\/Embedded\/releases\/download\/1.0.6\/Foo.xcframework.zip\",/g" \
+      "s/url: \"https:\/\/github.com\/chrisob55\/Embedded\/releases.*/url: \"https\:\/\/github.com\/chrisob55\/Embedded\/releases\/download\/1.0.7\/Foo.xcframework.zip\",/g" \
       ../Package.swift
     else
       echo "ERROR: $(date +'%c') - Failed to create checksum"
